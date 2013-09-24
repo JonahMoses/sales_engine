@@ -1,43 +1,41 @@
 require 'csv'
-require 'pry'
 require './lib/merchant.rb'
 
 class MerchantRepo
   attr_reader :merchant_list,
-              :search_results
+              :filename,
+              :search_results,
+              :merchant_data
 
-  def initialize(filename)
+  def initialize(filename = './data/merchants.csv')
     @merchant_list  = []
+    @filename       = filename
+    @merchant_data  = []
     @search_results = []
-    load(filename)
+    read_file
+    merchant_objects
   end
 
-  def load(filename)
-    @merchant_list = CSV.read filename, headers: true, header_converters: :symbol
+  def read_file
+    @merchant_data = CSV.read "./data/merchants.csv", headers: true, header_converters: :symbol
+  end
+
+  def merchant_objects
+    read_file.each do |row|
+      @merchant_list << Merchant.new(row)
+    end
     return @merchant_list
   end
 
-  def find_merchant_id(id)
-    @merchant_list.each do |merchant_hash|
-      if merchant_hash[:id] == id
-        @search_results << Merchant.new(merchant_hash)
-      end
+  def find_by(attribute, value)
+    merchant_objects.find do |merchant|
+      merchant.send(attribute) == value
     end
   end
 
-  def find_merchant_name(name)
-    @merchant_list.each do |merchant_hash|
-      if merchant_hash[:name] == name
-        @search_results << Merchant.new(merchant_hash)
-      end
-    end
-  end
-
-  def find_merchant_created_at(created_at)
-    @merchant_list.each do |merchant_hash|
-      if merchant_hash[:created_at] == created_at
-        @search_results << Merchant.new(merchant_hash)
-      end
+  def find_all_by(attribute, value)
+    merchant_objects.select do |merchant|
+      merchant.send(attribute) == value
     end
   end
 

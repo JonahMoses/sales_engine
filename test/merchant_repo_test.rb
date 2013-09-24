@@ -6,48 +6,49 @@ require "csv"
 
 class MerchantRepoTest < Minitest::Test
 
-  def test_loading_filename
-    filename      = "./data/merchants.csv"
-    merchant_repo = MerchantRepo.new(filename)
-    merchant      = merchant_repo.merchant_list[0]
-    assert_equal 5, merchant_repo.merchant_list.length
-    assert_equal "Schroeder-Jerde", merchant[:name]
+  attr_reader :merchant_repo
+  
+  def setup
+    @merchant_repo = MerchantRepo.new("./data/merchants.csv")
   end
 
-  def test_find_merchant_id
-    id            = "1"
-    filename      = "./data/merchants.csv" 
-    merchant_repo = MerchantRepo.new(filename)
-    merchant_repo.find_merchant_id(id)
-    merchant      = merchant_repo.search_results[0]
-    assert_equal "1", merchant.merchant_id
+  def test_it_gets_filename
+    assert_equal './data/merchants.csv', MerchantRepo.new.filename
   end
 
-  def test_find_merchant_name
-    name            = "Schroeder-Jerde"
-    filename      = "./data/merchants.csv" 
-    merchant_repo = MerchantRepo.new(filename)
-    merchant_repo.find_merchant_name(name)
-    merchant      = merchant_repo.search_results[0]
-    assert_equal "Schroeder-Jerde", merchant.merchant_name
+  def test_it_reads_file
+    loaded_data   = CSV.read './data/merchants.csv', headers: true, header_converters: :symbol
+    assert_equal loaded_data, merchant_repo.read_file
   end
 
-  def test_find_merchant_created_at
-    created_at            = "2012-03-27 14:53:59 UTC"
-    filename      = "./data/merchants.csv" 
-    merchant_repo = MerchantRepo.new(filename)
-    merchant_repo.find_merchant_created_at(created_at)
-    merchant      = merchant_repo.search_results[0]
-    assert_equal "2012-03-27 14:53:59 UTC", merchant.merchant_created_at
+  def test_it_loads_file_and_creates_merchants
+    merchant_data = merchant_repo.merchant_data
+    assert_equal 'Schroeder-Jerde', merchant_data.first[:name]
   end
 
-  def test_find_merchant_updated_at
-    name            = "Schroeder-Jerde"
-    filename      = "./data/merchants.csv" 
-    merchant_repo = MerchantRepo.new(filename)
-    merchant_repo.find_merchant_name(name)
-    merchant      = merchant_repo.search_results[0]
-    assert_equal "Schroeder-Jerde", merchant.merchant_name
+  def test_find_by_merchants_by_name_and_get_id
+    merchant = merchant_repo.find_by(:merchant_name, "Williamson Group")
+    assert_equal "5", merchant.merchant_id
   end
+
+  def test_find_by_merchants_by_id_and_get_name
+    merchant = merchant_repo.find_by(:merchant_id, "5")
+    assert_equal "Williamson Group", merchant.merchant_name
+  end
+
+  # def test_find_all_by_merchants_by_id_and_get_name
+  #   merchant = merchant_repo.find_all_by(:merchant_id, "5")
+  #   assert_equal "Williamson Groupd", merchant.merchant_name
+  # end
+
+  # def test_random_merchant
+  #   merchant_one = repo.random
+  #   merchant_two = repo.random
+  #   10.times do
+  #     break if merchant_one[:id] != merchant_two[:id]
+  #     merchant_two = repo.random
+  #   end
+  #   refute_equal merchant_one[:id], merchant_two[:id]
+  # end
   
 end

@@ -5,7 +5,7 @@ class Merchant
               :merchant_created_at,
               :merchant_updated_at
 
-  def initialize (attribute)
+  def initialize(attribute = {})
     @merchant_id         = attribute[:id]
     @merchant_name       = attribute[:name]
     @merchant_created_at = attribute[:created_at]

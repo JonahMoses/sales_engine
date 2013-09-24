@@ -4,7 +4,6 @@ require 'minitest/pride'
 require './lib/item'
 require 'csv'
 
-
 class ItemTest < MiniTest::Test 
 
   def contents

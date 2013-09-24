@@ -4,7 +4,6 @@ require 'minitest/pride'
 require './lib/invoice_items'
 require 'csv'
 
-
 class InvoiceItemsTest < MiniTest::Test 
 
   def contents
@@ -13,13 +12,13 @@ class InvoiceItemsTest < MiniTest::Test
 
   def item_attributes
     contents.each do |row|
-      id         = row[:id]
-      item_id    = row[:item_id]
-      invoice_id = row[:invoice_id]
-      quantity   = row[:quantity]
-      unit_price = row[:unit_price]
-      created_at = row[:created_at]
-      updated_at = row[:updated_at]
+      invoice_item_id = row[:id]
+      item_id         = row[:item_id]
+      invoice_id      = row[:invoice_id]
+      quantity        = row[:quantity]
+      unit_price      = row[:unit_price]
+      created_at      = row[:created_at]
+      updated_at      = row[:updated_at]
     end
   end
 
@@ -28,7 +27,7 @@ class InvoiceItemsTest < MiniTest::Test
   end
 
   def test_invoice_items_id
-    assert_equal item_attributes[:id], invoice_items.id
+    assert_equal item_attributes[:id], invoice_items.invoice_item_id
   end
 
   def test_item_id

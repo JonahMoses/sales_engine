@@ -1,6 +1,6 @@
 class Item
 
-  attr_reader :item_id, 
+  attr_reader :id, 
               :name, 
               :description, 
               :unit_price, 
@@ -9,7 +9,7 @@ class Item
               :updated_at
 
   def initialize(item_attributes)
-    @item_id     = item_attributes[:id]
+    @id          = item_attributes[:id]
     @name        = item_attributes[:name]
     @description = item_attributes[:description]
     @unit_price  = item_attributes[:unit_price]

@@ -27,28 +27,25 @@ class MerchantRepoTest < Minitest::Test
   end
 
   def test_find_by_merchants_by_name_and_get_id
-    merchant = merchant_repo.find_by(:merchant_name, "Williamson Group")
+    merchant = merchant_repo.find_by("merchant_name", "Williamson Group")
     assert_equal "5", merchant.merchant_id
   end
 
   def test_find_by_merchants_by_id_and_get_name
-    merchant = merchant_repo.find_by(:merchant_id, "5")
+    merchant = merchant_repo.find_by("merchant_id", "5")
     assert_equal "Williamson Group", merchant.merchant_name
   end
 
-  # def test_find_all_by_merchants_by_id_and_get_name
-  #   merchant = merchant_repo.find_all_by(:merchant_id, "5")
-  #   assert_equal "Williamson Groupd", merchant.merchant_name
-  # end
+  def test_find_all_by_merchants_by_id_and_get_name
+    merchant = merchant_repo.find_all_by("merchant_id", "5")
+    assert_equal 2, merchant.size
+  end
 
   # def test_random_merchant
-  #   merchant_one = repo.random
-  #   merchant_two = repo.random
-  #   10.times do
-  #     break if merchant_one[:id] != merchant_two[:id]
-  #     merchant_two = repo.random
-  #   end
-  #   refute_equal merchant_one[:id], merchant_two[:id]
+  #   merchant_repo = MerchantRepo.new
+  #   random_one = merchant_repo.random
+  #   random_two = merchant_repo.random
+  #   assert_equal "1", random_two
   # end
   
 end

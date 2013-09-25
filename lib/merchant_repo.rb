@@ -1,18 +1,14 @@
 require 'csv'
+require 'pry'
 require './lib/merchant.rb'
 
 class MerchantRepo
   attr_reader :merchant_list,
               :filename,
-              :search_results,
               :merchant_data
 
   def initialize(filename = './data/merchants.csv')
-    @merchant_list  = []
-    @filename       = filename
-    @merchant_data  = []
-    @search_results = []
-    read_file
+    @filename = filename
     merchant_objects
   end
 
@@ -21,6 +17,7 @@ class MerchantRepo
   end
 
   def merchant_objects
+    @merchant_list = []
     read_file.each do |row|
       @merchant_list << Merchant.new(row)
     end
@@ -29,14 +26,26 @@ class MerchantRepo
 
   def find_by(attribute, value)
     merchant_objects.find do |merchant|
-      merchant.send(attribute) == value
+      merchant.send(attribute).downcase == value.downcase
     end
   end
 
   def find_all_by(attribute, value)
+    results = []
     merchant_objects.select do |merchant|
-      merchant.send(attribute) == value
+      if merchant.send(attribute).downcase == value.downcase
+      results << merchant
+      end
     end
   end
+
+  # def random
+  #   random_one = @merchant_list.sample
+  #   random_two = @merchant_list.sample
+  #   random_id = ""
+  #   total_rows = @merchant_list.count
+  #   random_id = rand(total_rows).to_s
+  #   random_merchant = @merchant_list.find {|merchant| merchant_list.id = random_id }
+  # end
 
 end

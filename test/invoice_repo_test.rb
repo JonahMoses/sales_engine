@@ -26,10 +26,10 @@ class InvoiceRepoTest < Minitest::Test
     assert_equal '26', invoice_data.first[:merchant_id]
   end
 
-  def test_find_by_invoice_merchant_id_and_get_custmer_id
-    invoice = @invoice_repo.find_by("merchant_id", "26")
-    assert_equal "1", invoice.invoice_customer_id
-  end
+  # def test_find_by_invoice_merchant_id_and_get_custmer_id
+  #   invoice = @invoice_repo.find_by("merchant_id", "26")
+  #   assert_equal "1", invoice.invoice_customer_id
+  # end
 
   # def test_find_by_merchants_by_id_and_get_name
   #   merchant = merchant_repo.find_by("merchant_id", "5")

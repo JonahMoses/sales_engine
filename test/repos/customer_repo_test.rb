@@ -3,6 +3,7 @@ require "minitest/autorun"
 require "minitest/pride"
 require "./lib/repos/customer_repo"
 require "csv"
+require 'pry'
 
 class CustomerRepoTest < Minitest::Test
 
@@ -21,10 +22,10 @@ class CustomerRepoTest < Minitest::Test
     assert_equal '1', customer_items.first.id
   end
 
-  # def test_define_method_find_by_id
-  #   invoice = invoice_item_repo.find_by_id("1")
-  #   assert_equal "1", invoice.id
-  # end
+  def test_define_method_find_by_id
+    customer = customer_repo.find_by_id("1")
+    assert_equal "1", customer.id
+  end
 
   # def test_define_method_find_by_item_id
   #   invoice = invoice_item_repo.find_by_item_id("539")

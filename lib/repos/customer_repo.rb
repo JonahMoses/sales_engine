@@ -1,5 +1,6 @@
 require 'csv'
 require './lib/items/customer.rb'
+require 'pry'
 
 class CustomerRepo
   attr_reader :customer_list,
@@ -12,15 +13,16 @@ class CustomerRepo
     # @sales_engine = sales_engine
   end
 
-  # %w[id item_id invoice_id quantity unit_price created_at updated_at].each do |attribute|
-  #   define_method("find_by_#{attribute}") do |value|
-  #     invoice_item_objects.find do |invoice_items|
-  #       invoice_items.send(attribute).to_s.downcase == value.downcase
-  #     end
-  #   end
-  # end
+  %w[id first_name last_name created_at updated_at].each do |attribute|
+    define_method("find_by_#{attribute}") do |value|
+     customer_objects.find do |customer|
+     binding.pry
+       customer_items.send(attribute).to_s.downcase == value.downcase
+      end
+    end
+  end
 
-  # %w[id item_id invoice_id quantity unit_price created_at updated_at].each do |attribute|
+  # %w[id first_name last_name created_at updated_at].each do |attribute|
   #   define_method("find_all_by_#{attribute}") do |value|
   #     invoice_item_objects.find_all do |invoice_items|
   #       invoice_items.send(attribute).to_s.downcase == value.downcase

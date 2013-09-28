@@ -1,5 +1,6 @@
 require 'csv'
 require './lib/items/invoice_items.rb'
+require 'pry'
 
 class InvoiceItemRepo
   attr_reader :invoice_item_list,
@@ -14,8 +15,8 @@ class InvoiceItemRepo
 
   %w[id item_id invoice_id quantity unit_price created_at updated_at].each do |attribute|
     define_method("find_by_#{attribute}") do |value|
-      invoice_item_objects.find do |invoice_items|
-        invoice_items.send(attribute).to_s.downcase == value.downcase
+      invoice_item_objects.find do |invoice_item|
+        invoice_item.send(attribute).to_s.downcase == value.downcase
       end
     end
   end

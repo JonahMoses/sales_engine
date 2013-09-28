@@ -15,20 +15,19 @@ class CustomerRepo
 
   %w[id first_name last_name created_at updated_at].each do |attribute|
     define_method("find_by_#{attribute}") do |value|
-     customer_objects.find do |customer|
-     binding.pry
-       customer_items.send(attribute).to_s.downcase == value.downcase
+     customer_objects.find do |customer_item|
+       customer_item.send(attribute).to_s.downcase == value.downcase
       end
     end
   end
 
-  # %w[id first_name last_name created_at updated_at].each do |attribute|
-  #   define_method("find_all_by_#{attribute}") do |value|
-  #     invoice_item_objects.find_all do |invoice_items|
-  #       invoice_items.send(attribute).to_s.downcase == value.downcase
-  #     end
-  #   end
-  # end
+  %w[id first_name last_name created_at updated_at].each do |attribute|
+    define_method("find_all_by_#{attribute}") do |value|
+      customer_objects.find_all do |customer_item|
+        customer_item.send(attribute).to_s.downcase == value.downcase
+      end
+    end
+  end
 
   def random
     customer_objects.sample

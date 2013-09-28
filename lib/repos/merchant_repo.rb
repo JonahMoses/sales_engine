@@ -10,22 +10,18 @@ class MerchantRepo
     @filename = filename
   end
 
-  def self.build_find_by_methods
-    %w[id name created_at updated_at].each do |attribute|
-      define_method("find_by_#{attribute}") do |value|
-        merchant_objects.find do |merchant|
-          merchant.send(attribute).downcase == value.downcase
-        end
+  %w[id name created_at updated_at].each do |attribute|
+    define_method("find_by_#{attribute}") do |value|
+      merchant_objects.find do |merchant|
+        merchant.send(attribute).to_s.downcase == value.downcase
       end
     end
   end
 
-   def self.build_find_all_by_methods
-    %w[id name created_at updated_at].each do |attribute|
-      define_method("find_all_by_#{attribute}") do |value|
-        merchant_objects.find_all do |merchant|
-          merchant.send(attribute).downcase == value.downcase
-        end
+  %w[id name created_at updated_at].each do |attribute|
+    define_method("find_all_by_#{attribute}") do |value|
+      merchant_objects.find_all do |merchant|
+        merchant.send(attribute).to_s.downcase == value.downcase
       end
     end
   end
@@ -37,9 +33,6 @@ class MerchantRepo
   def merchants
     merchant_objects
   end
-
-  build_find_by_methods
-  build_find_all_by_methods
 
   private
 

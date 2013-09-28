@@ -4,3 +4,4 @@ id,invoice_id,credit_card_number,credit_card_expiration_date,result,created_at,u
 3,4,4.3545E+15,,success,2012-03-27 14:54:10 UTC,2012-03-27 14:54:10 UTC
 4,5,4.51555E+15,,success,2012-03-27 14:54:10 UTC,2012-03-27 14:54:10 UTC
 5,6,4.84452E+15,,success,2012-03-27 14:54:10 UTC,2012-03-27 14:54:10 UTC
+5,6,4.84452E+15,,success,2012-03-27 14:54:10 UTC,2012-03-27 14:54:10 UTC

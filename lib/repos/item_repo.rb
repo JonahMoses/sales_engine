@@ -15,7 +15,7 @@ class ItemRepo
   %w[id name description unit_price merchant_id created_at updated_at].each do |attribute|
     define_method("find_by_#{attribute}") do |value|
       item_objects.find do |item|
-        item.send(attribute).downcase == value.downcase
+        item.send(attribute).to_s.downcase == value.downcase
       end
     end
   end
@@ -23,7 +23,7 @@ class ItemRepo
   %w[id name description unit_price merchant_id created_at updated_at].each do |attribute|
     define_method("find_all_by_#{attribute}") do |value|
       item_objects.find_all do |item|
-        item.send(attribute).downcase == value.downcase
+        item.send(attribute).to_s.downcase == value.downcase
       end
     end
   end

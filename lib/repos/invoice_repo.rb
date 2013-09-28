@@ -15,7 +15,7 @@ class InvoiceRepo
   %w[id customer_id merchant_id status created_at updated_at].each do |attribute|
     define_method("find_by_#{attribute}") do |value|
       invoice_objects.find do |invoice|
-        invoice.send(attribute).downcase == value.downcase
+        invoice.send(attribute).to_s.downcase == value.downcase
       end
     end
   end
@@ -23,7 +23,7 @@ class InvoiceRepo
   %w[id customer_id merchant_id status created_at updated_at].each do |attribute|
     define_method("find_all_by_#{attribute}") do |value|
       invoice_objects.find_all do |invoice|
-        invoice.send(attribute).downcase == value.downcase
+        invoice.send(attribute).to_s.downcase == value.downcase
       end
     end
   end

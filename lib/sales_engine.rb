@@ -19,16 +19,29 @@ class SalesEngine
               :invoice_repository,
               :item_repository,
               :merchant_repository,
-              :transaction_repository
+              :transaction_repository,
+              :data_directory
+
+  def initialize(data_directory = './data')
+    @data_directory = data_directory
+  end
 
   def startup
-    @customer_repository ||= CustomerRepo.new('./data/customers.csv')
-    @invoice_item_repository ||= InvoiceItemRepo.new('./data/invoice_items.csv')
-    @invoice_repository ||= InvoiceRepo.new('./data/invoices.csv')
-    @item_repository ||= ItemRepo.new('./data/items.csv')
-    @merchant_repository ||= MerchantRepo.new('./data/merchants.csv')
-    @transaction_repository ||= TransactionRepo.new('./data/transactions.csv')
+    @customer_repository ||= CustomerRepo.new(file('customers'))
+    @invoice_item_repository ||= InvoiceItemRepo.new(file('invoice_items'))
+    @invoice_repository ||= InvoiceRepo.new(file('invoices'))
+    @item_repository ||= ItemRepo.new(file('items'))
+    @merchant_repository ||= MerchantRepo.new(file('merchants'))
+    @transaction_repository ||= TransactionRepo.new(file('transactions'))
   end
+
+ 
+  private
+ 
+  def file(name)
+    File.join(data_directory, "#{name}.csv")
+  end
+
 
 end
 

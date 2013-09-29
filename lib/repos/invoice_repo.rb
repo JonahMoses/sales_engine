@@ -6,11 +6,11 @@ class InvoiceRepo
   attr_reader :invoice_list,
               :filename,
               :invoices,
-              :sales_engine
+              :engine
 
   def initialize(filename = './data/invoices.csv')
     @filename = filename
-    @sales_engine = sales_engine
+    # @engine = engine
   end
 
   %w[id customer_id merchant_id status created_at updated_at].each do |attribute|

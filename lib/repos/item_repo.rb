@@ -1,16 +1,16 @@
 require 'csv'
-require './lib/items/item.rb'
+require_relative '../items/item.rb'
 
 class ItemRepo
   
   attr_reader :item_list,
               :filename,
               :items,
-              :sales_engine
+              :engine
 
   def initialize(filename = './data/items.csv')
     @filename = filename
-    @sales_engine = sales_engine
+    # @engine = engine
   end
 
   %w[id name description unit_price merchant_id created_at updated_at].each do |attribute|

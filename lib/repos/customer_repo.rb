@@ -5,12 +5,12 @@ class CustomerRepo
   
   attr_reader :customer_list,
               :filename,
-              :customers
-              # :sales_engine
+              :customers,
+              :engine
 
   def initialize(filename = './data/customers.csv')
     @filename = filename
-    # @sales_engine = sales_engine
+    # @engine = engine
   end
 
   %w[id first_name last_name created_at updated_at].each do |attribute|

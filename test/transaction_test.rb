@@ -2,6 +2,8 @@ require 'minitest'
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/items/transaction'
+require './lib/items/invoice'
+require './lib/repos/invoice_repo'
 
 class TransactionTest < MiniTest::Test  
 

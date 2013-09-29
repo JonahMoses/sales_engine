@@ -5,10 +5,12 @@ class MerchantRepo
   
   attr_reader :merchant_list,
               :filename,
-              :merchants
+              :merchants,
+              :engine
 
   def initialize(filename = './data/merchants.csv')
     @filename = filename
+    # @engine = engine
   end
 
   %w[id name created_at updated_at].each do |attribute|

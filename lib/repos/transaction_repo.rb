@@ -5,10 +5,12 @@ class TransactionRepo
   
   attr_reader :transaction_list,
               :filename,
-              :transactions
+              :transactions,
+              :engine
 
   def initialize(filename = './data/transactions.csv')
     @filename = filename
+    # @engine = engine
   end
 
   %w[id invoice_id credit_card_number credit_card_expiration_date result created_at updated_at].each do |attribute|

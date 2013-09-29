@@ -1,7 +1,8 @@
 require 'csv'
-require './lib/items/invoice.rb'
+require_relative '../items/invoice.rb'
 
 class InvoiceRepo
+  
   attr_reader :invoice_list,
               :filename,
               :invoices,

@@ -1,7 +1,8 @@
 require 'csv'
-require './lib/items/transaction.rb'
+require_relative '../items/transaction'
 
 class TransactionRepo
+  
   attr_reader :transaction_list,
               :filename,
               :transactions

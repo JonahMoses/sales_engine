@@ -1,4 +1,5 @@
 class Customer
+  
   attr_reader :id,
               :first_name,
               :last_name,
@@ -13,4 +14,7 @@ class Customer
     @updated_at = customer_attribute[:updated_at]
   end
 
+  def invoices
+    InvoiceRepo.new.find_all_by_customer_id(self.id)
+  end
 end

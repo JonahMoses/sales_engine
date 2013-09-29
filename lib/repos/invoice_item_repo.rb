@@ -1,8 +1,8 @@
 require 'csv'
 require './lib/items/invoice_items.rb'
-require 'pry'
 
 class InvoiceItemRepo
+  
   attr_reader :invoice_item_list,
               :filename,
               :invoice_items

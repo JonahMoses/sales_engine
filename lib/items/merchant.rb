@@ -12,4 +12,12 @@ class Merchant
     @updated_at = attribute[:updated_at]
   end
 
+  def items
+    ItemRepo.new.find_all_by_merchant_id(self.id)
+  end
+
+  def invoices
+    InvoiceRepo.new.find_all_by_merchant_id(self.id)
+  end
+  
 end

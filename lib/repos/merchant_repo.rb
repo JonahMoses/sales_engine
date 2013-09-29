@@ -1,7 +1,8 @@
 require 'csv'
-require './lib/items/merchant.rb'
+require_relative '../items/merchant'
 
 class MerchantRepo
+  
   attr_reader :merchant_list,
               :filename,
               :merchants

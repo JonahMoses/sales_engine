@@ -1,8 +1,8 @@
 require 'csv'
-require './lib/items/customer.rb'
-require 'pry'
+require_relative '../items/customer.rb'
 
 class CustomerRepo
+  
   attr_reader :customer_list,
               :filename,
               :customers
@@ -34,6 +34,10 @@ class CustomerRepo
   end
 
   def customer_items
+    customer_objects
+  end
+
+  def all
     customer_objects
   end
 

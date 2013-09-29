@@ -18,4 +18,8 @@ class Transaction
     @updated_at                  = transaction_attribute[:updated_at]
   end
 
+  def invoice
+    InvoiceRepo.new.find_by_id(self.invoice_id)
+  end
+
 end

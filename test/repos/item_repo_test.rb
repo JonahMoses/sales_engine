@@ -1,19 +1,22 @@
 require "minitest"
 require "minitest/autorun"
 require "minitest/pride"
+require "./lib/sales_engine"
 require "./lib/repos/item_repo"
 require "csv"
 
 class ItemRepoTest < Minitest::Test
 
-  attr_reader :item_repo
+  attr_reader :item_repo,
+              :engine
   
   def setup
-    @item_repo = ItemRepo.new("./data/items.csv")
+    @engine = SalesEngine.new
+    @item_repo = engine.item_repository
   end
 
   def test_it_gets_filename
-    assert_equal './data/items.csv', ItemRepo.new.filename
+    assert_equal './data/items.csv', @item_repo.filename
   end
 
   def test_it_loads_file_and_creates_items

@@ -5,12 +5,16 @@ require "./lib/items/merchant"
 
 class MerchantTest < Minitest::Test
 
-  def merchant_attributes
-    {id: "1", name: "Jonah", created_at: "2012-03-27 14:53:59 UTC", updated_at: "2012-03-27 14:53:59 UTC"}
+  attr_reader :merchant_repo,
+              :engine
+  
+  def setup
+    @engine = SalesEngine.new
+    @merchant_repo = engine.merchant_repository
   end
 
   def merchant
-    merchant = Merchant.new(merchant_attributes)
+    merchant ||= merchant_repo.merchants.first
   end
 
   def test_merchant_id
@@ -18,7 +22,7 @@ class MerchantTest < Minitest::Test
   end
 
   def test_merchant_name
-    assert_equal "Jonah", merchant.name
+    assert_equal "Schroeder-Jerde", merchant.name
   end  
 
   def test_merchant_created_at
@@ -48,6 +52,12 @@ class MerchantTest < Minitest::Test
       assert_kind_of Invoice, invoice
     end
   end
+
+  # def test_gathers_revenue_into_an_array
+  #   merchant.revenue.each do |revenue|
+  #     assert_kind_of Array, merchant.revenue
+  #   end
+  # end
 
 
 

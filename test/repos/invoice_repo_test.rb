@@ -1,19 +1,22 @@
 require "minitest"
 require "minitest/autorun"
 require "minitest/pride"
+require "./lib/sales_engine"
 require "./lib/repos/invoice_repo"
 require "csv"
 
 class InvoiceRepoTest < Minitest::Test
 
-  attr_reader :invoice_repo
+  attr_reader :invoice_repo,
+              :engine
   
   def setup
-    @invoice_repo = InvoiceRepo.new("./data/invoices.csv")
+    @engine = SalesEngine.new
+    @invoice_repo = engine.invoice_repository
   end
 
   def test_it_gets_filename
-    assert_equal './data/invoices.csv', InvoiceRepo.new.filename
+    assert_equal './data/invoices.csv', @invoice_repo.filename
   end
 
   def test_it_loads_file_and_creates_invoices

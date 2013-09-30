@@ -5,13 +5,16 @@ require './lib/items/customer.rb'
 
 class CustomerTest < MiniTest::Test 
 
+  attr_reader :customer_repo,
+              :engine
   
-  def customer_attributes
-    {id: "1", first_name: "Jonah", last_name: "Moses", created_at: "2012-03-27 14:54:09 UTC", updated_at: "2012-03-27 14:54:09 UTC"}
+  def setup
+    @engine = SalesEngine.new
+    @customer_repo = engine.customer_repository
   end
 
   def customer
-    @customer = Customer.new(customer_attributes)
+    @customer ||= @customer_repo.customers.first
   end
 
   def test_customer_id
@@ -19,11 +22,11 @@ class CustomerTest < MiniTest::Test
   end
   
   def test_customer_first_name
-    assert_equal "Jonah", customer.first_name
+    assert_equal "Joey", customer.first_name
   end
   
   def test_customer_last_name
-    assert_equal "Moses", customer.last_name
+    assert_equal "Ondricka", customer.last_name
   end
   
   def test_created_at

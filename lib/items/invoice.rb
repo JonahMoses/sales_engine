@@ -5,23 +5,25 @@ class Invoice
               :merchant_id,
               :status, 
               :created_at, 
-              :updated_at                              
+              :updated_at,
+              :engine                             
   
-  def initialize(invoice_attribute)
-    @id          = invoice_attribute[:id]                                    
-    @customer_id = invoice_attribute[:customer_id]                            
-    @merchant_id = invoice_attribute[:merchant_id] 
-    @status      = invoice_attribute[:status]                                   
-    @created_at  = invoice_attribute[:created_at]    
-    @updated_at  = invoice_attribute[:updated_at]    
+  def initialize(invoice_attribute, engine)
+    @id          = invoice_attribute[:id].to_s                              
+    @customer_id = invoice_attribute[:customer_id].to_s                            
+    @merchant_id = invoice_attribute[:merchant_id].to_s 
+    @status      = invoice_attribute[:status].to_s                                   
+    @created_at  = invoice_attribute[:created_at].to_s    
+    @updated_at  = invoice_attribute[:updated_at].to_s   
+    @engine = engine 
   end
 
   def transactions
-    TransactionRepo.new.find_all_by_invoice_id(self.id)
+    engine.transaction_repository.find_all_by_invoice_id(self.id)
   end
 
   def invoice_items
-    InvoiceItemRepo.new.find_all_by_invoice_id(self.id)
+    engine.invoice_item_repository.find_all_by_invoice_id(self.id)
   end
 
   def items
@@ -34,10 +36,11 @@ class Invoice
   end
 
   def customer
-    CustomerRepo.new.find_by_id(self.customer_id)
+    engine.customer_repository.find_by_id(self.customer_id)
   end
 
   def merchant
-    MerchantRepo.new.find_by_id(self.merchant_id)
+    engine.merchant_repository.find_by_id(self.merchant_id)
   end
+
 end

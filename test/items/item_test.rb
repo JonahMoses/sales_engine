@@ -5,12 +5,16 @@ require './lib/items/item'
 
 class ItemTest < MiniTest::Test 
 
-  def item_attributes
-    {id: "1", name: "Jonah", description: "item", unit_price: "75107", merchant_id: "1", created_at: "2012-03-27 14:53:59 UTC", updated_at: "2012-03-27 14:53:59 UTC"}
+  attr_reader :item_repo,
+              :engine
+  
+  def setup
+    @engine = SalesEngine.new
+    @item_repo = engine.item_repository
   end
 
   def item
-    item ||= Item.new(item_attributes)
+    item ||= item_repo.items.first
   end
 
   def test_item_id
@@ -18,11 +22,11 @@ class ItemTest < MiniTest::Test
   end
 
   def test_name
-    assert_equal "Jonah", item.name
+    assert_equal "Item Qui Esse", item.name
   end
 
   def test_description
-    assert_equal "item", item.description
+    assert_equal "Nihil autem sit odio inventore deleniti. Est laudantium ratione distinctio laborum. Minus voluptatem nesciunt assumenda dicta voluptatum porro.", item.description
   end
 
   def test_unit_price

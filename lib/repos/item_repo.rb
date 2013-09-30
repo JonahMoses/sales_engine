@@ -8,15 +8,15 @@ class ItemRepo
               :items,
               :engine
 
-  def initialize(filename = './data/items.csv')
+  def initialize(filename = './data/items.csv', engine)
     @filename = filename
-    # @engine = engine
+    @engine = engine
   end
 
   %w[id name description unit_price merchant_id created_at updated_at].each do |attribute|
     define_method("find_by_#{attribute}") do |value|
       item_objects.find do |item|
-        item.send(attribute).to_s.downcase == value.downcase
+        item.send(attribute).to_s.downcase == value.to_s.downcase
       end
     end
   end
@@ -24,7 +24,7 @@ class ItemRepo
   %w[id name description unit_price merchant_id created_at updated_at].each do |attribute|
     define_method("find_all_by_#{attribute}") do |value|
       item_objects.find_all do |item|
-        item.send(attribute).to_s.downcase == value.downcase
+        item.send(attribute).to_s.downcase == value.to_s.downcase
       end
     end
   end
@@ -34,19 +34,23 @@ class ItemRepo
   end
 
   def items
-    item_objects
+    item_list ||= item_objects
+  end
+
+  def all
+    items
   end
 
   private
 
   def read_file
-    @items = CSV.read "./data/items.csv", headers: true, header_converters: :symbol
+    @items = CSV.read filename, headers: true, header_converters: :symbol
   end
 
   def item_objects
     @item_list = []
     read_file.each do |row|
-      @item_list << Item.new(row)
+      @item_list << Item.new(row, engine)
     end
     return @item_list
   end

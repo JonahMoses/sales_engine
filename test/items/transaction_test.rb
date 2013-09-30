@@ -7,12 +7,16 @@ require './lib/repos/invoice_repo'
 
 class TransactionTest < MiniTest::Test  
 
-  def transaction_attributes
-    {id: "1", invoice_id: "1", credit_card_number: "4.65441E+15", credit_card_expiration_date: "", result: "success", created_at: "2012-03-27 14:54:09 UTC", updated_at: "2012-03-27 14:54:09 UTC"}
-  end 
+  attr_reader :transaction_repo,
+              :engine
+  
+  def setup
+    @engine = SalesEngine.new
+    @transaction_repo = engine.transaction_repository
+  end
 
   def transaction
-    transaction ||= Transaction.new(transaction_attributes)
+    @transaction ||= @transaction_repo.transactions.first
   end
 
   def test_transaction_id

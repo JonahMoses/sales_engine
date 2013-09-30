@@ -1,24 +1,27 @@
 require "minitest"
 require "minitest/autorun"
 require "minitest/pride"
+require "./lib/sales_engine"
 require "./lib/repos/customer_repo"
 require "csv"
 
 class CustomerRepoTest < Minitest::Test
 
-  attr_reader :customer_repo
-  
+  attr_reader :customer_repo,
+              :engine
+
   def setup
-    @customer_repo = CustomerRepo.new("./data/customers.csv")
+    @engine = SalesEngine.new
+    @customer_repo = engine.customer_repository
   end
 
   def test_it_gets_filename
-    assert_equal './data/customers.csv', CustomerRepo.new.filename
+    assert_equal './data/customers.csv', @customer_repo.filename
   end
 
   def test_it_loads_file_and_creates_customers
-    customer_items = customer_repo.customer_items
-    assert_equal '1', customer_items.first.id
+    customers = customer_repo.customers
+    assert_equal '1', customers.first.id
   end
 
   def test_define_method_find_by_id
@@ -74,7 +77,7 @@ class CustomerRepoTest < Minitest::Test
   def test_random_merchant
     customer_one = @customer_repo.random
     customer_two = @customer_repo.random
-    100.times do
+    10.times do
       break if customer_one.id != customer_two.id
       customer_two = @customer_repo.random
     end

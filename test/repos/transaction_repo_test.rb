@@ -1,19 +1,22 @@
 require "minitest"
 require "minitest/autorun"
 require "minitest/pride"
+require "./lib/sales_engine"
 require "./lib/repos/transaction_repo"
 require "csv"
 
 class TransactionRepoTest < Minitest::Test
 
-  attr_reader :transaction_repo
+  attr_reader :transaction_repo,
+              :engine
   
   def setup
-    @transaction_repo = TransactionRepo.new("./data/transactions.csv")
+    @engine = SalesEngine.new
+    @transaction_repo = engine.transaction_repository
   end
 
   def test_it_gets_filename
-    assert_equal './data/transactions.csv', TransactionRepo.new.filename
+    assert_equal './data/transactions.csv', transaction_repo.filename
   end
 
   def test_it_loads_file_and_creates_merchants
@@ -38,7 +41,7 @@ class TransactionRepoTest < Minitest::Test
 
   def test_define_method_find_by_credit_card_expiration_date
     transaction = transaction_repo.find_by_credit_card_expiration_date("")
-    assert_equal nil, transaction.credit_card_expiration_date
+    assert_equal "", transaction.credit_card_expiration_date
   end
 
   def test_define_method_find_by_result
@@ -100,5 +103,5 @@ class TransactionRepoTest < Minitest::Test
     end
     refute_equal merchant_one, merchant_two
   end
-  
+
 end

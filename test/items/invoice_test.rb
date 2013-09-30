@@ -1,16 +1,22 @@
 require "minitest"
 require "minitest/autorun"
 require "minitest/pride"
-require "./lib/items/invoice"
+# require "./lib/items/invoice"
+require "./lib/sales_engine"
+require 'pry'
 
 class InvoiceTest < MiniTest::Test
   
-  def invoice_attributes
-    {id: "1", customer_id: "1", merchant_id: "1", status: "shipped", created_at: "2012-03-25 09:54:09 UTC", updated_at: "2012-03-25 09:54:09 UTC"}
+  attr_reader :invoice_repo,
+              :engine
+  
+  def setup
+    @engine = SalesEngine.new
+    @invoice_repo = engine.invoice_repository
   end
 
   def invoice
-    @invoice ||= Invoice.new(invoice_attributes)
+    @invoice ||= @invoice_repo.invoices.first
   end
 
   def test_it_gets_invoice_id
@@ -22,7 +28,7 @@ class InvoiceTest < MiniTest::Test
   end
 
   def test_it_gets_merchant_id
-    assert_equal "1", invoice.merchant_id
+    assert_equal "26", invoice.merchant_id
   end
 
   def test_it_gets_invoice_status

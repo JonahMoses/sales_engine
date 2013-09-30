@@ -8,15 +8,15 @@ class MerchantRepo
               :merchants,
               :engine
 
-  def initialize(filename = './data/merchants.csv')
+  def initialize(filename = './data/merchants.csv', engine)
     @filename = filename
-    # @engine = engine
+    @engine = engine
   end
 
   %w[id name created_at updated_at].each do |attribute|
     define_method("find_by_#{attribute}") do |value|
       merchant_objects.find do |merchant|
-        merchant.send(attribute).to_s.downcase == value.downcase
+        merchant.send(attribute).to_s.downcase == value.to_s.downcase
       end
     end
   end
@@ -24,7 +24,7 @@ class MerchantRepo
   %w[id name created_at updated_at].each do |attribute|
     define_method("find_all_by_#{attribute}") do |value|
       merchant_objects.find_all do |merchant|
-        merchant.send(attribute).to_s.downcase == value.downcase
+        merchant.send(attribute).to_s.downcase == value.to_s.downcase
       end
     end
   end
@@ -34,19 +34,23 @@ class MerchantRepo
   end
 
   def merchants
-    merchant_objects
+    merchant_list ||= merchant_objects
+  end
+
+  def all
+    merchants
   end
 
   private
 
   def read_file
-    @merchants = CSV.read "./data/merchants.csv", headers: true, header_converters: :symbol
+    @merchants = CSV.read filename, headers: true, header_converters: :symbol
   end
 
   def merchant_objects
     @merchant_list = []
     read_file.each do |row|
-      @merchant_list << Merchant.new(row)
+      @merchant_list << Merchant.new(row, engine)
     end
     return @merchant_list
   end

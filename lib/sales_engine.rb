@@ -24,18 +24,18 @@ class SalesEngine
 
   def initialize(data_directory = './data')
     @data_directory = data_directory
+    startup
   end
 
   def startup
-    @customer_repository ||= CustomerRepo.new(file('customers'))
-    @invoice_item_repository ||= InvoiceItemRepo.new(file('invoice_items'))
-    @invoice_repository ||= InvoiceRepo.new(file('invoices'))
-    @item_repository ||= ItemRepo.new(file('items'))
-    @merchant_repository ||= MerchantRepo.new(file('merchants'))
-    @transaction_repository ||= TransactionRepo.new(file('transactions'))
+    @customer_repository ||= CustomerRepo.new(file('customers'), self)
+    @invoice_item_repository ||= InvoiceItemRepo.new(file('invoice_items'), self)
+    @invoice_repository ||= InvoiceRepo.new(file('invoices'), self)
+    @item_repository ||= ItemRepo.new(file('items'), self)
+    @merchant_repository ||= MerchantRepo.new(file('merchants'), self)
+    @transaction_repository ||= TransactionRepo.new(file('transactions'), self)
   end
 
- 
   private
  
   def file(name)

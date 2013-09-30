@@ -6,24 +6,26 @@ class Item
               :unit_price, 
               :merchant_id, 
               :created_at, 
-              :updated_at
+              :updated_at,
+              :engine
 
-  def initialize(item_attributes = {})
-    @id          = item_attributes[:id]
-    @name        = item_attributes[:name]
-    @description = item_attributes[:description]
-    @unit_price  = item_attributes[:unit_price]
-    @merchant_id = item_attributes[:merchant_id]
-    @created_at  = item_attributes[:created_at]
-    @updated_at  = item_attributes[:updated_at]
+  def initialize(item_attributes = {}, engine)
+    @id          = item_attributes[:id].to_s
+    @name        = item_attributes[:name].to_s
+    @description = item_attributes[:description].to_s
+    @unit_price  = item_attributes[:unit_price].to_s
+    @merchant_id = item_attributes[:merchant_id].to_s
+    @created_at  = item_attributes[:created_at].to_s
+    @updated_at  = item_attributes[:updated_at].to_s
+    @engine = engine    
   end
 
   def invoice_items
-    InvoiceItemRepo.new.find_all_by_item_id(self.id)
+    engine.invoice_item_repository.find_all_by_item_id(self.id)
   end
 
   def merchant
-    MerchantRepo.new.find_by_id(self.merchant_id)
+    engine.merchant_repository.find_by_id(self.merchant_id)
   end
 
 end

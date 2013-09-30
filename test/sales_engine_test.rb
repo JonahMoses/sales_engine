@@ -31,27 +31,27 @@ class SalesEngineTest < Minitest::Test
   end 
 
   def test_it_loads_invoice_item_repository
-    invoice_item_repository = InvoiceItemRepo.new
+    invoice_item_repository = sales_engine.invoice_item_repository
     assert_kind_of invoice_item_repository.class, sales_engine.invoice_item_repository
   end 
 
   def test_it_loads_invoice_repository
-    invoice_repository = InvoiceRepo.new
+    invoice_repository = sales_engine.invoice_repository
     assert_kind_of invoice_repository.class, sales_engine.invoice_repository
   end 
 
   def test_it_loads_item_repository
-    item_repository = ItemRepo.new
+    item_repository = sales_engine.item_repository
     assert_kind_of item_repository.class, sales_engine.item_repository
   end 
 
   def test_it_loads_merchant_repository
-    merchant_repository = MerchantRepo.new
+    merchant_repository = sales_engine.merchant_repository
     assert_kind_of merchant_repository.class, sales_engine.merchant_repository
   end 
 
   def test_it_loads_transaction_repository
-    transaction_repository = TransactionRepo.new
+    transaction_repository = sales_engine.transaction_repository
     assert_kind_of transaction_repository.class, sales_engine.transaction_repository
   end 
 

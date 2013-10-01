@@ -61,37 +61,37 @@ class InvoiceItemRepoTest < Minitest::Test
 
   def test_define_method_find_all_by_id
     invoice = invoice_item_repo.find_all_by_id("5")
-    assert_equal 2, invoice.count
+    assert_equal 1, invoice.count
   end
   
   def test_define_method_find_all_by_item_id
     invoice = invoice_item_repo.find_all_by_item_id("529")
-    assert_equal 2, invoice.count
+    assert_equal 7, invoice.count
   end
 
   def test_define_method_find_all_by_invoice_id
     invoice = invoice_item_repo.find_all_by_invoice_id("1")
-    assert_equal 6, invoice.count
+    assert_equal 8, invoice.count
   end
 
   def test_define_method_find_all_by_quantity
     invoice = invoice_item_repo.find_all_by_quantity("7")
-    assert_equal 2, invoice.count
+    assert_equal 2181, invoice.count
   end
 
   def test_define_method_find_all_by_unit_price
     invoice = invoice_item_repo.find_all_by_unit_price("79140")
-    assert_equal 2, invoice.count
+    assert_equal 7, invoice.count
   end
 
   def test_define_method_find_all_by_created_at
     invoice = invoice_item_repo.find_all_by_created_at("2012-03-27 14:54:09 UTC")
-    assert_equal 6, invoice.count
+    assert_equal 15, invoice.count
   end
   
   def test_define_method_find_all_by_updated_at
     invoice = invoice_item_repo.find_all_by_updated_at("2012-03-27 14:54:09 UTC")
-    assert_equal 6, invoice.count
+    assert_equal 15, invoice.count
   end
 
   def test_random_merchant
@@ -102,6 +102,11 @@ class InvoiceItemRepoTest < Minitest::Test
       invoice_item_two = @invoice_item_repo.random
     end
     refute_equal invoice_item_one, invoice_item_two
+  end
+  
+  def test_all_things_in_repository
+    invoice_items = invoice_item_repo.all
+    assert_equal 21687, invoice_items.count
   end
   
 end

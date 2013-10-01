@@ -76,22 +76,22 @@ class ItemRepoTest < Minitest::Test
 
   def test_define_method_find_all_by_unit_price
     item = item_repo.find_all_by_unit_price("75107")
-    assert_equal 1, item.count
+    assert_equal 2, item.count
   end  
 
   def test_define_method_find_all_by_merchant_id
     item = item_repo.find_all_by_merchant_id("1")
-    assert_equal 6, item.count
+    assert_equal 15, item.count
   end
 
   def test_define_method_find_all_by_created_at
     item = item_repo.find_all_by_created_at("2012-03-27 14:53:59 UTC")
-    assert_equal 6, item.count
+    assert_equal 170, item.count
   end
 
   def test_define_method_find_all_by_updated_at
     item = item_repo.find_all_by_updated_at("2012-03-27 14:53:59 UTC")
-    assert_equal 6, item.count
+    assert_equal 170, item.count
   end
 
   def test_random_merchant
@@ -102,6 +102,11 @@ class ItemRepoTest < Minitest::Test
       item_two = @item_repo.random
     end
     refute_equal item_one, item_two
+  end
+  
+  def test_all_things_in_repository
+    items = item_repo.all
+    assert_equal 2483, items.count
   end
   
 end

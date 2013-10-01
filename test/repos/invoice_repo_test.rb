@@ -61,27 +61,27 @@ class InvoiceRepoTest < Minitest::Test
   
   def test_define_method_find_all_by_customer_id
     invoice = invoice_repo.find_all_by_customer_id("1")
-    assert_equal 6, invoice.count
+    assert_equal 8, invoice.count
   end
 
   def test_define_method_find_all_by_merchant_id
     invoice = invoice_repo.find_all_by_merchant_id("41")
-    assert_equal 2, invoice.count
+    assert_equal 54, invoice.count
   end
 
   def test_define_method_find_all_by_status
     invoice = invoice_repo.find_all_by_status("shipped")
-    assert_equal 6, invoice.count
+    assert_equal 4843, invoice.count
   end
 
   def test_define_method_find_all_by_created_at
     invoice = invoice_repo.find_all_by_created_at("2012-03-07 19:54:10 UTC")
-    assert_equal 2, invoice.count
+    assert_equal 1, invoice.count
   end
 
   def test_define_method_find_all_by_updated_at
     invoice = invoice_repo.find_all_by_updated_at("2012-03-07 19:54:10 UTC")
-    assert_equal 2, invoice.count
+    assert_equal 1, invoice.count
   end
   
   def test_random_merchant
@@ -93,5 +93,11 @@ class InvoiceRepoTest < Minitest::Test
     end
     refute_equal invoice_one, invoice_two
   end
+
+  def test_all_things_in_repository
+    invoices = invoice_repo.all
+    assert_equal 4843, invoices.count
+  end
+  
   
 end

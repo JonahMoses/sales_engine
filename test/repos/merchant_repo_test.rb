@@ -59,4 +59,20 @@ class MerchantRepoTest < Minitest::Test
     refute_equal merchant_one, merchant_two
   end
   
+  def test_all_things_in_repository
+    merchants = merchant_repo.all
+    assert_equal 100, merchants.count
+  end
+
+  def test_most_revenue_sorted_by_quantity
+    assert_equal "26", merchant_repo.most_revenue(7).first.id
+  end
+
+  def test_most_items_by_number_of_items_sold
+    assert_equal 3, merchant_repo.most_items(3).count
+    # merchant_repo.most_items(10).each do |merchant|
+    #   puts merchant.items.count
+    # end
+  end
+
 end

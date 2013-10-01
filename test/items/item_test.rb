@@ -47,7 +47,7 @@ class ItemTest < MiniTest::Test
 
   def test_each_item_returns_a_collection_of_invoice_items
     assert_kind_of Array, item.invoice_items
-    assert_equal item.invoice_items.size, 1
+    assert_equal 24, item.invoice_items.size
   end
 
   def test_each_item_returns_a_merchant

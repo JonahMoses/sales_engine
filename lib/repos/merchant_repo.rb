@@ -41,6 +41,16 @@ class MerchantRepo
     merchants
   end
 
+  def most_revenue(quantity)
+    revenue_merchants = all.sort_by { |merchant| merchant.revenue }
+    revenue_merchants[0,quantity].reverse
+  end
+
+  def most_items(quantity)
+    items_by_merchants = all.sort_by { |merchant| merchant.items.count }
+    items_by_merchants[0,quantity].reverse
+  end
+
   private
 
   def read_file

@@ -2,6 +2,7 @@ require "minitest"
 require "minitest/autorun"
 require "minitest/pride"
 require "./lib/items/merchant"
+require "./lib/sales_engine"
 
 class MerchantTest < Minitest::Test
 
@@ -53,12 +54,14 @@ class MerchantTest < Minitest::Test
     end
   end
 
-  # def test_gathers_revenue_into_an_array
-  #   merchant.revenue.each do |revenue|
-  #     assert_kind_of Array, merchant.revenue
-  #   end
-  # end
+  def test_revenue
+    assert_equal 52877464, merchant.revenue
+  end
 
+  def test_revenue_by_date
+    date = "2012-03-25 09:54:09 UTC"
+    assert_equal 0, merchant.revenue(date)
+  end
 
 
 end

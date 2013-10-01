@@ -23,7 +23,7 @@ class InvoiceItemsTest < MiniTest::Test
   end
 
   def test_item_id
-    assert_equal "1", invoice_item.item_id
+    assert_equal "539", invoice_item.item_id
   end
 
   def test_invoice_id

@@ -51,7 +51,7 @@ class CustomerRepoTest < Minitest::Test
 
   def test_define_method_find_all_by_id
     customer = customer_repo.find_all_by_id("5")
-    assert_equal 2, customer.count
+    assert_equal 1, customer.count
   end
   
   def test_define_method_find_all_by_first_name
@@ -61,17 +61,17 @@ class CustomerRepoTest < Minitest::Test
 
   def test_define_method_find_all_by_last_name
     customer = customer_repo.find_all_by_last_name("Nader")
-    assert_equal 2, customer.count
+    assert_equal 3, customer.count
   end
 
   def test_define_method_find_all_by_created_at
     customer = customer_repo.find_all_by_created_at("2012-03-27 14:54:10 UTC")
-    assert_equal 5, customer.count
+    assert_equal 6, customer.count
   end
   
   def test_define_method_find_all_by_updated_at
     customer = customer_repo.find_all_by_updated_at("2012-03-27 14:54:10 UTC")
-    assert_equal 5, customer.count
+    assert_equal 6, customer.count
   end
 
   def test_random_merchant
@@ -86,7 +86,7 @@ class CustomerRepoTest < Minitest::Test
 
   def test_all_things_in_repository
     customers = customer_repo.all
-    assert_equal 6, customers.count
+    assert_equal 1000, customers.count
   end
   
 end

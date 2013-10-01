@@ -35,8 +35,8 @@ class TransactionRepoTest < Minitest::Test
   end
 
   def test_define_method_find_by_credit_card_number
-    transaction = transaction_repo.find_by_credit_card_number("4.65441E+15")
-    assert_equal "4.65441E+15", transaction.credit_card_number
+    transaction = transaction_repo.find_by_credit_card_number("4654405418249632")
+    assert_equal "4654405418249632", transaction.credit_card_number
   end
 
   def test_define_method_find_by_credit_card_expiration_date
@@ -61,7 +61,7 @@ class TransactionRepoTest < Minitest::Test
 
   def test_define_method_find_all_by_id
     transaction = transaction_repo.find_all_by_id("5")
-    assert_equal 2, transaction.count
+    assert_equal 1, transaction.count
   end
 
   def test_define_method_find_all_by_invoice_id
@@ -70,18 +70,18 @@ class TransactionRepoTest < Minitest::Test
   end
 
   def test_define_method_find_all_by_credit_card_number
-    transaction = transaction_repo.find_all_by_credit_card_number("4.65441E+15")
+    transaction = transaction_repo.find_all_by_credit_card_number("4654405418249632")
     assert_equal 1, transaction.count
   end
 
   def test_define_method_find_all_by_credit_card_expiration_date
     transaction = transaction_repo.find_all_by_credit_card_expiration_date("")
-    assert_equal 6, transaction.count
+    assert_equal 5595, transaction.count
   end
 
   def test_define_method_find_all_by_result
     transaction = transaction_repo.find_all_by_result("success")
-    assert_equal 6, transaction.count
+    assert_equal 4648, transaction.count
   end
 
   def test_define_method_find_all_by_created_at
@@ -91,7 +91,7 @@ class TransactionRepoTest < Minitest::Test
 
   def test_define_method_find_all_by_updated_at
     transaction = transaction_repo.find_all_by_updated_at("2012-03-27 14:54:10 UTC")
-    assert_equal 4, transaction.count
+    assert_equal 20, transaction.count
   end
 
   def test_random_merchant
@@ -104,4 +104,9 @@ class TransactionRepoTest < Minitest::Test
     refute_equal merchant_one, merchant_two
   end
 
+  def test_all_things_in_repository
+    transactions = transaction_repo.all
+    assert_equal 5595, transactions.count
+  end
+  
 end

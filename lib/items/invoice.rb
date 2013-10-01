@@ -6,6 +6,7 @@ class Invoice
               :status, 
               :created_at, 
               :updated_at,
+              :total,
               :engine                             
   
   def initialize(invoice_attribute, engine)
@@ -41,6 +42,18 @@ class Invoice
 
   def merchant
     engine.merchant_repository.find_by_id(self.merchant_id)
+  end
+
+  def total_prices
+    self.invoice_items.collect do |item|
+      item.unit_price.to_i * item.quantity.to_i
+    end.reduce(:+)
+  end
+
+  def successful?
+    self.transactions.any? do |transaction|
+      transaction.result == "success"
+    end
   end
 
 end

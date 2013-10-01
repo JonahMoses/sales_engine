@@ -1,7 +1,6 @@
 require "minitest"
 require "minitest/autorun"
 require "minitest/pride"
-# require "./lib/items/invoice"
 require "./lib/sales_engine"
 require 'pry'
 
@@ -55,7 +54,7 @@ class InvoiceTest < MiniTest::Test
 
   def test_it_returns_collection_of_invoice_items_instances
     assert_kind_of Array, invoice.invoice_items
-    assert_equal invoice.invoice_items.size, 6
+    assert_equal 8, invoice.invoice_items.size
   end
 
   def test_each_invoice_item_in_the_invoice_items_array_is_an_invoice_item
@@ -86,4 +85,15 @@ class InvoiceTest < MiniTest::Test
     assert invoice.items.size > 0, true
   end
 
+  def test_it_gets_total_prices
+    assert_equal 2106777, invoice.total_prices
+  end
+
+  def test_it_is_successful?
+    assert_equal true, invoice.successful?
+  end
+
+  # def test_it_gets_total_items
+  #   assert_equal 1, invoice.total_items
+  # end
 end

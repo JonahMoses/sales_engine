@@ -4,6 +4,7 @@ class Merchant
               :name,
               :created_at,
               :updated_at,
+              :revenue,
               :engine
 
   def initialize(attribute = {}, engine)
@@ -22,12 +23,33 @@ class Merchant
     engine.invoice_repository.find_all_by_merchant_id(self.id)
   end
 
-  # def revenue
-    
-  # end
+  def succesfull_invoices
+    invoices.select { |invoice| invoice.successful? }
+  end
 
-  # def most_revenue(quantity)
+  def revenue(date = nil)
+    if date.nil?
+      estimate_revenue(succesfull_invoices)
+      # succesfull_invoices.collect do |invoice|
+      #   invoice.total_prices
+      # end.reduce(0, :+)
+    else
+      invoices_date = succesfull_invoices.select do |invoice|
+        invoice.created_at == date
+      end
+      estimate_revenue(invoices_date)
+      # invoices_date.collect do |invoice|
+      #   invoice.total_prices
+      # end.reduce(0, :+)
+    end
+  end
 
-  # end
-  
+private
+
+  def estimate_revenue(invoices)
+    invoices.collect do |invoice|
+      invoice.total_prices
+    end.reduce(0, :+)
+  end
+
 end

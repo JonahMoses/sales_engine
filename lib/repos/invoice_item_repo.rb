@@ -13,7 +13,7 @@ class InvoiceItemRepo
     @engine = engine
   end
 
-  %w[id item_id invoice_id quantity unit_price created_at updated_at].each do |attribute|
+  %w[id item_id invoice_id quantity created_at updated_at].each do |attribute|
     define_method("find_by_#{attribute}") do |value|
       invoice_item_objects.find do |invoice_item|
         invoice_item.send(attribute).to_s.downcase == value.to_s.downcase
@@ -21,7 +21,20 @@ class InvoiceItemRepo
     end
   end
 
-  %w[id item_id invoice_id quantity unit_price created_at updated_at].each do |attribute|
+  def find_by_unit_price(value)
+    invoice_item_objects.find do |invoice_item|
+      invoice_item.unit_price == value
+    end
+  end
+
+  def find_all_by_unit_price(value)
+    invoice_item_objects.select do |invoice_item|
+      invoice_item.unit_price == value
+    end
+  end
+
+
+  %w[id item_id invoice_id quantity created_at updated_at].each do |attribute|
     define_method("find_all_by_#{attribute}") do |value|
       invoice_item_objects.find_all do |invoice_items|
         invoice_items.send(attribute).to_s.downcase == value.to_s.downcase

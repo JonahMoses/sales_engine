@@ -13,7 +13,7 @@ class ItemRepo
     @engine = engine
   end
 
-  %w[id name description unit_price merchant_id created_at updated_at].each do |attribute|
+  %w[id name description merchant_id created_at updated_at].each do |attribute|
     define_method("find_by_#{attribute}") do |value|
       item_objects.find do |item|
         item.send(attribute).to_s.downcase == value.to_s.downcase
@@ -21,7 +21,19 @@ class ItemRepo
     end
   end
 
-  %w[id name description unit_price merchant_id created_at updated_at].each do |attribute|
+  def find_by_unit_price(value)
+    item_objects.find do |item|
+      item.unit_price == value
+    end
+  end
+
+  def find_all_by_unit_price(value)
+    item_objects.select do |item|
+      item.unit_price == value
+    end
+  end
+
+  %w[id name description merchant_id created_at updated_at].each do |attribute|
     define_method("find_all_by_#{attribute}") do |value|
       item_objects.find_all do |item|
         item.send(attribute).to_s.downcase == value.to_s.downcase

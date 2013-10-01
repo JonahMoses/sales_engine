@@ -13,11 +13,11 @@ class Item
     @id          = item_attributes[:id].to_s
     @name        = item_attributes[:name].to_s
     @description = item_attributes[:description].to_s
-    @unit_price  = item_attributes[:unit_price].to_s
+    @unit_price  = BigDecimal.new(item_attributes[:unit_price])
     @merchant_id = item_attributes[:merchant_id].to_s
     @created_at  = item_attributes[:created_at].to_s
     @updated_at  = item_attributes[:updated_at].to_s
-    @engine = engine    
+    @engine      = engine    
   end
 
   def invoice_items

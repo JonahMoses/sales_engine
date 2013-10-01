@@ -4,6 +4,7 @@ require 'minitest/pride'
 require './lib/items/transaction'
 require './lib/items/invoice'
 require './lib/repos/invoice_repo'
+require "./lib/sales_engine"
 
 class TransactionTest < MiniTest::Test  
 

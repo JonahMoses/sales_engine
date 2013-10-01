@@ -2,6 +2,7 @@ require 'minitest'
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/items/item'
+require "./lib/sales_engine"
 
 class ItemTest < MiniTest::Test 
 
@@ -30,7 +31,7 @@ class ItemTest < MiniTest::Test
   end
 
   def test_unit_price
-    assert_equal "75107", item.unit_price
+    assert_equal 75107, item.unit_price.to_i
   end
 
   def test_merchant_id

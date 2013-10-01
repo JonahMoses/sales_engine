@@ -23,21 +23,21 @@ class Merchant
     engine.invoice_repository.find_all_by_merchant_id(self.id)
   end
 
-  def succesfull_invoices
+  def successful_invoices
     invoices.select { |invoice| invoice.successful? }
   end
 
   def revenue(date = nil)
     if date.nil?
-      estimate_revenue(succesfull_invoices)
-      # succesfull_invoices.collect do |invoice|
+      estimate_revenue(successful_invoices)
+      # successful_invoices.collect do |invoice|
       #   invoice.total_prices
       # end.reduce(0, :+)
     else
-      invoices_date = succesfull_invoices.select do |invoice|
-        invoice.created_at == date
-      end
-      estimate_revenue(invoices_date)
+      # invoices_date = successful_invoices.select do |invoice|
+      #   invoice.created_at == date
+      # end
+      estimate_revenue(invoices_by_date(date))
       # invoices_date.collect do |invoice|
       #   invoice.total_prices
       # end.reduce(0, :+)
@@ -46,7 +46,13 @@ class Merchant
 
 private
 
-  def estimate_revenue(invoices)
+  def invoices_by_date(date)
+    successful_invoices.select do |invoice|
+      invoice.created_at == date
+    end
+  end
+
+  def estimate_revenue#(invoices)
     invoices.collect do |invoice|
       invoice.total_prices
     end.reduce(0, :+)

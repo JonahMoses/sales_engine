@@ -46,7 +46,7 @@ class Invoice
 
   def total_prices
     self.invoice_items.collect do |item|
-      item.unit_price.to_i * item.quantity.to_i
+      item.unit_price * item.quantity
     end.reduce(:+)
   end
 

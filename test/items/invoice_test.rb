@@ -2,7 +2,6 @@ require "minitest"
 require "minitest/autorun"
 require "minitest/pride"
 require "./lib/sales_engine"
-require 'pry'
 
 class InvoiceTest < MiniTest::Test
   
@@ -47,9 +46,7 @@ class InvoiceTest < MiniTest::Test
   end
 
   def test_each_transaction_in_the_transactions_array_is_an_transaction
-    invoice.transactions.each do |transaction|
-      assert_kind_of Transaction, transaction
-    end
+    assert_kind_of Transaction, invoice.transactions.first
   end
 
   def test_it_returns_collection_of_invoice_items_instances
@@ -58,9 +55,7 @@ class InvoiceTest < MiniTest::Test
   end
 
   def test_each_invoice_item_in_the_invoice_items_array_is_an_invoice_item
-    invoice.invoice_items.each do |invoice_item|
-      assert_kind_of InvoiceItems, invoice_item
-    end
+    assert_kind_of InvoiceItems, invoice.invoice_items.first
   end
 
   def test_it_returns_collection_of_item_instances_by_way_of_invoice_item_objects
@@ -68,9 +63,7 @@ class InvoiceTest < MiniTest::Test
   end
 
   def test_each_item_is_an_item
-    invoice.items.each do |item|
-      assert_kind_of Item, item
-    end
+    assert_kind_of Item, invoice.items.first
   end
 
   def test_it_returns_a_customer_instances

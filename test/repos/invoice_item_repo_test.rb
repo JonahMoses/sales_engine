@@ -41,12 +41,12 @@ class InvoiceItemRepoTest < Minitest::Test
 
   def test_define_method_find_by_quantity
     invoice = invoice_item_repo.find_by_quantity("5")
-    assert_equal "5", invoice.quantity
+    assert_equal 5, invoice.quantity
   end
 
   def test_define_method_find_by_unit_price
     invoice = invoice_item_repo.find_by_unit_price("13635")
-    assert_equal "13635", invoice.unit_price
+    assert_equal "13635", invoice.unit_price.to_i
   end
 
   def test_define_method_find_by_created_at

@@ -2,6 +2,7 @@ require 'minitest'
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/items/item'
+require "./lib/sales_engine"
 
 class ItemTest < MiniTest::Test 
 
@@ -30,7 +31,7 @@ class ItemTest < MiniTest::Test
   end
 
   def test_unit_price
-    assert_equal "75107", item.unit_price
+    assert_equal 75107, item.unit_price.to_i
   end
 
   def test_merchant_id
@@ -47,11 +48,23 @@ class ItemTest < MiniTest::Test
 
   def test_each_item_returns_a_collection_of_invoice_items
     assert_kind_of Array, item.invoice_items
-    assert_equal item.invoice_items.size, 1
+    assert_equal 24, item.invoice_items.size
   end
 
   def test_each_item_returns_a_merchant
     assert_kind_of Merchant, item.merchant
+  end
+
+  def test_revenue
+    assert_equal 5749357487, item.revenue
+  end
+
+  def test_quantity_sold
+    assert_equal 109, item.quantity_sold
+  end
+
+  def test_best_day
+    assert_equal "2012-03-20 20:57:24 UTC", item.best_day
   end
 
 end

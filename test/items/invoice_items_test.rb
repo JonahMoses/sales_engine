@@ -2,7 +2,7 @@ require 'minitest'
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/items/invoice_items'
-require 'pry'
+require "./lib/sales_engine"
 
 class InvoiceItemsTest < MiniTest::Test 
 
@@ -23,7 +23,7 @@ class InvoiceItemsTest < MiniTest::Test
   end
 
   def test_item_id
-    assert_equal "1", invoice_item.item_id
+    assert_equal "539", invoice_item.item_id
   end
 
   def test_invoice_id
@@ -31,11 +31,11 @@ class InvoiceItemsTest < MiniTest::Test
   end
 
   def test_quantity
-    assert_equal "5", invoice_item.quantity
+    assert_equal 5, invoice_item.quantity
   end
 
   def test_unit_price
-    assert_equal "13635", invoice_item.unit_price
+    assert_equal 13635, invoice_item.unit_price.to_i
   end
 
   def test_created_at

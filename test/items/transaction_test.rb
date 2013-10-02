@@ -4,6 +4,7 @@ require 'minitest/pride'
 require './lib/items/transaction'
 require './lib/items/invoice'
 require './lib/repos/invoice_repo'
+require "./lib/sales_engine"
 
 class TransactionTest < MiniTest::Test  
 
@@ -28,7 +29,7 @@ class TransactionTest < MiniTest::Test
   end
 
   def test_credit_card_number
-    assert_equal "4.65441E+15", transaction.credit_card_number
+    assert_equal "4654405418249632", transaction.credit_card_number
   end
 
   def test_credit_card_expiration_date

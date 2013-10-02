@@ -17,7 +17,7 @@ class Transaction
     @result                      = transaction_attribute[:result].to_s
     @created_at                  = transaction_attribute[:created_at].to_s
     @updated_at                  = transaction_attribute[:updated_at].to_s
-    @engine = engine  
+    @engine                      = engine  
   end
 
   def invoice

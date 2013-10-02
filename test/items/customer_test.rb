@@ -2,6 +2,7 @@ require 'minitest'
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/items/customer.rb'
+require "./lib/sales_engine"
 
 class CustomerTest < MiniTest::Test 
 

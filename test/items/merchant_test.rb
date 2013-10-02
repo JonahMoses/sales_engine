@@ -2,6 +2,7 @@ require "minitest"
 require "minitest/autorun"
 require "minitest/pride"
 require "./lib/items/merchant"
+require "./lib/sales_engine"
 
 class MerchantTest < Minitest::Test
 
@@ -38,9 +39,7 @@ class MerchantTest < Minitest::Test
   end
 
   def test_each_item_in_the_items_array_is_an_item
-    merchant.items.each do |item|
-      assert_kind_of Item, item
-    end
+    assert_kind_of Item, merchant.items.first
   end
 
   def test_it_returns_collection_of_invoice_instances
@@ -48,18 +47,24 @@ class MerchantTest < Minitest::Test
   end
 
   def test_each_invoice_in_the_invoices_array_is_an_invoice
-    merchant.invoices.each do |invoice|
-      assert_kind_of Invoice, invoice
-    end
+    assert_kind_of Invoice, merchant.invoices.first
   end
 
-  # def test_gathers_revenue_into_an_array
-  #   merchant.revenue.each do |revenue|
-  #     assert_kind_of Array, merchant.revenue
-  #   end
-  # end
+  def test_revenue
+    assert_equal 52877464, merchant.revenue
+  end
 
+  def test_revenue_by_date
+    date = "2012-03-25 09:54:09 UTC"
+    assert_equal 0, merchant.revenue(date)
+  end
 
+  def test_favorite_customer
+    assert_equal Customer, merchant.favorite_customer.class
+  end
 
+  def test_customers_with_pending_invoices_returns_an_arry_of_customers
+    assert_equal 3, merchant.customers_with_pending_invoices.count
+  end
 end
 

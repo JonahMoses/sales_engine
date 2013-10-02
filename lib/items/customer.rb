@@ -13,10 +13,11 @@ class Customer
     @last_name  = customer_attribute[:last_name].to_s
     @created_at = customer_attribute[:created_at].to_s
     @updated_at = customer_attribute[:updated_at].to_s
-    @engine = engine
+    @engine     = engine
   end
 
   def invoices
     engine.invoice_repository.find_all_by_customer_id(self.id)
   end
+  
 end

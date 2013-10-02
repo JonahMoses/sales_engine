@@ -10,12 +10,12 @@ class TransactionRepo
 
   def initialize(filename = './data/transactions.csv', engine)
     @filename = filename
-    @engine = engine
+    @engine   = engine
   end
 
   %w[id invoice_id credit_card_number credit_card_expiration_date result created_at updated_at].each do |attribute|
     define_method("find_by_#{attribute}") do |value|
-      transaction_objects.find do |transaction|
+      all.find do |transaction|
         transaction.send(attribute).to_s.downcase == value.to_s.downcase
       end
     end
@@ -23,18 +23,26 @@ class TransactionRepo
 
   %w[id invoice_id credit_card_number credit_card_expiration_date result created_at updated_at].each do |attribute|
     define_method("find_all_by_#{attribute}") do |value|
-      transaction_objects.find_all do |transaction|
+      all.find_all do |transaction|
         transaction.send(attribute).to_s.downcase == value.to_s.downcase
       end
     end
   end
 
+  def find_all_by_invoice_id(invoice_id)
+    transactions_grouped_by_invoice_id[invoice_id] || []
+  end
+
+  def transactions_grouped_by_invoice_id
+    @transactions_grouped_by_invoice_id ||= all.group_by { |transaction| transaction.invoice_id }
+  end 
+
   def random
-    transaction_objects.sample
+    transactions.sample
   end
 
   def transactions
-    transaction_list ||= transaction_objects
+    @transaction_list ||= build_transactions
   end
 
   def all
@@ -44,15 +52,17 @@ class TransactionRepo
   private
 
   def read_file
-    @transactions = CSV.read filename, headers: true, header_converters: :symbol
+    CSV.read filename, headers: true, header_converters: :symbol
   end
 
-  def transaction_objects
-    @transaction_list = []
+  def build_transactions
+    transaction_list = []
+
     read_file.each do |row|
-      @transaction_list << Transaction.new(row, engine)
+      transaction_list << Transaction.new(row, engine)
     end
-    return @transaction_list
+
+    transaction_list
   end
 
 end

@@ -11,12 +11,12 @@ class Invoice
   
   def initialize(invoice_attribute, engine)
     @id          = invoice_attribute[:id].to_s                              
-    @customer_id = invoice_attribute[:customer_id].to_s                            
+    @customer_id = invoice_attribute[:customer_id].to_i                            
     @merchant_id = invoice_attribute[:merchant_id].to_s 
     @status      = invoice_attribute[:status].to_s                                   
     @created_at  = invoice_attribute[:created_at].to_s    
     @updated_at  = invoice_attribute[:updated_at].to_s   
-    @engine = engine 
+    @engine      = engine 
   end
 
   def transactions
@@ -28,12 +28,7 @@ class Invoice
   end
 
   def items
-    items = invoice_items.collect do |invoice_item|
-      invoice_item.item
-    end
-    items.compact
-    # after refactoring: 
-    # invoice_items.collect(&:item).compact
+    invoice_items.collect(&:item).compact
   end
 
   def customer
@@ -45,9 +40,9 @@ class Invoice
   end
 
   def total_prices
-    self.invoice_items.collect do |item|
-      item.unit_price * item.quantity
-    end.reduce(:+)
+    self.invoice_items.collect do |invoice_item|
+      invoice_item.total_price
+    end.reduce(0,:+)
   end
 
   def successful?

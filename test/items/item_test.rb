@@ -55,12 +55,16 @@ class ItemTest < MiniTest::Test
     assert_kind_of Merchant, item.merchant
   end
 
-  def test_revenue 
-    assert_equal 8186663, item.revenue
+  def test_revenue
+    assert_equal 5749357487, item.revenue
   end
 
   def test_quantity_sold
     assert_equal 109, item.quantity_sold
+  end
+
+  def test_best_day
+    assert_equal "2012-03-20 20:57:24 UTC", item.best_day
   end
 
 end

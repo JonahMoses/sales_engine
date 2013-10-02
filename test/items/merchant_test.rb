@@ -51,15 +51,20 @@ class MerchantTest < Minitest::Test
   end
 
   def test_revenue
-    skip
     assert_equal 52877464, merchant.revenue
   end
 
   def test_revenue_by_date
-    skip
     date = "2012-03-25 09:54:09 UTC"
     assert_equal 0, merchant.revenue(date)
   end
 
+  def test_favorite_customer
+    assert_equal Customer, merchant.favorite_customer.class
+  end
+
+  def test_customers_with_pending_invoices_returns_an_arry_of_customers
+    assert_equal 3, merchant.customers_with_pending_invoices.count
+  end
 end
 

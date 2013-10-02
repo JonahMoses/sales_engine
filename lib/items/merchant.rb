@@ -12,7 +12,7 @@ class Merchant
     @name       = attribute[:name].to_s
     @created_at = attribute[:created_at].to_s
     @updated_at = attribute[:updated_at].to_s
-    @engine = engine  
+    @engine     = engine  
   end
 
   def items
@@ -30,18 +30,19 @@ class Merchant
   def revenue(date = nil)
     if date.nil?
       estimate_revenue(successful_invoices)
-      # successful_invoices.collect do |invoice|
-      #   invoice.total_prices
-      # end.reduce(0, :+)
     else
-      # invoices_date = successful_invoices.select do |invoice|
-      #   invoice.created_at == date
-      # end
       estimate_revenue(invoices_by_date(date))
-      # invoices_date.collect do |invoice|
-      #   invoice.total_prices
-      # end.reduce(0, :+)
     end
+  end
+
+  def favorite_customer
+    counts = Hash.new(0)
+    successful_invoices.each_with_object(counts) { |invoice| counts[invoice.customer] +=1 }
+    counts.sort_by{ |customer, count| count }.reverse.flatten.first
+  end
+
+  def customers_with_pending_invoices
+    pending_invoices.collect { |invoice| invoice.customer }
   end
 
 private
@@ -56,6 +57,10 @@ private
     invoices.collect do |invoice|
       invoice.total_prices
     end.reduce(0, :+)
+  end
+
+  def pending_invoices
+    invoices - successful_invoices
   end
 
 end

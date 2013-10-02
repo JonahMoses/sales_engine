@@ -31,7 +31,7 @@ class InvoiceRepoTest < Minitest::Test
 
   def test_define_method_find_by_customer_id
     invoice = invoice_repo.find_by_customer_id("1")
-    assert_equal "1", invoice.customer_id
+    assert_equal 1, invoice.customer_id
   end
 
   def test_define_method_find_by_merchant_id

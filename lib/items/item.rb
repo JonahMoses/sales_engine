@@ -28,16 +28,41 @@ class Item
     engine.merchant_repository.find_by_id(self.merchant_id)
   end
 
-  def revenue
-   @revenue ||= invoice_items.collect do |invoice_item|
-      invoice_item.total_price if invoice_item.invoice.successful?
-    end.compact.reduce(0, :+)
+  def revenue(date = nil)
+    if date.nil?
+      estimate_revenue(successful_invoices)
+    else
+      estimate_revenue(invoices_by_date(date))
+    end
   end
 
   def quantity_sold
     invoice_items.collect do |invoice_item|
       invoice_item.quantity if invoice_item.invoice.successful?
     end.compact.reduce(0, :+)
+  end
+
+  def successful_invoices
+    engine.invoice_repository.invoices.select { |invoice| invoice.successful? }
+  end
+
+  def best_day
+    dates = successful_invoices.collect { |successful_invoices| successful_invoices.created_at }.uniq
+    dates.max_by { |date| revenue(date) }
+  end
+
+private
+
+  def invoices_by_date(date)
+    successful_invoices.select do |invoice|
+      invoice.created_at == date
+    end
+  end
+
+  def estimate_revenue(invoices)
+    invoices.collect do |invoice|
+      invoice.total_prices.to_i
+    end.reduce(0, :+)
   end
 
 end

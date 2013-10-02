@@ -65,16 +65,11 @@ class MerchantRepoTest < Minitest::Test
   end
 
   def test_most_revenue_sorted_by_quantity
-    skip
-    assert_equal "26", merchant_repo.most_revenue(7).first.id
+    assert_equal "21", merchant_repo.most_revenue(7).first.id
   end
 
   def test_most_items_by_number_of_items_sold
-    skip
     assert_equal 3, merchant_repo.most_items(3).count
-    # merchant_repo.most_items(10).each do |merchant|
-    #   puts merchant.items.count
-    # end
   end
 
 end

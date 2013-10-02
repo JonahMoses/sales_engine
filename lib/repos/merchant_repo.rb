@@ -3,19 +3,18 @@ require_relative '../items/merchant'
 
 class MerchantRepo
   
-  attr_reader :merchant_list,
-              :filename,
+  attr_reader :filename,
               :merchants,
               :engine
 
   def initialize(filename = './data/merchants.csv', engine)
     @filename = filename
-    @engine = engine
+    @engine   = engine
   end
 
   %w[id name created_at updated_at].each do |attribute|
     define_method("find_by_#{attribute}") do |value|
-      merchant_objects.find do |merchant|
+      all.find do |merchant|
         merchant.send(attribute).to_s.downcase == value.to_s.downcase
       end
     end
@@ -23,18 +22,26 @@ class MerchantRepo
 
   %w[id name created_at updated_at].each do |attribute|
     define_method("find_all_by_#{attribute}") do |value|
-      merchant_objects.find_all do |merchant|
+      all.find_all do |merchant|
         merchant.send(attribute).to_s.downcase == value.to_s.downcase
       end
     end
   end
 
+  def find_all_by_id(id)
+    merchants_grouped_by_id[id] || []
+  end
+
+  def merchants_grouped_by_id 
+    @merchants_grouped_by_id ||= all.group_by { |merchant| merchant.id }
+  end
+    
   def random
-    merchant_objects.sample
+    merchants.sample
   end
 
   def merchants
-    merchant_list ||= merchant_objects
+    @merchants ||= build_merchants
   end
 
   def all
@@ -54,15 +61,17 @@ class MerchantRepo
   private
 
   def read_file
-    @merchants = CSV.read filename, headers: true, header_converters: :symbol
+    CSV.read filename, headers: true, header_converters: :symbol
   end
 
-  def merchant_objects
-    @merchant_list = []
+  def build_merchants
+    merchants = []
+
     read_file.each do |row|
-      @merchant_list << Merchant.new(row, engine)
+      merchants << Merchant.new(row, engine)
     end
-    return @merchant_list
+    
+    merchants
   end
 
 end

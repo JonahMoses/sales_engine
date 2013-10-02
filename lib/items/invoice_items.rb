@@ -17,7 +17,7 @@ class InvoiceItems
     @unit_price = BigDecimal.new(item_attributes[:unit_price])
     @created_at = item_attributes[:created_at].to_s
     @updated_at = item_attributes[:updated_at].to_s
-    @engine = engine
+    @engine     = engine
   end
 
   def invoice

@@ -22,7 +22,7 @@ class InvoiceTest < MiniTest::Test
   end
 
   def test_it_gets_customer_id
-    assert_equal "1", invoice.customer_id
+    assert_equal 1, invoice.customer_id
   end
 
   def test_it_gets_merchant_id

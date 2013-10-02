@@ -55,4 +55,12 @@ class ItemTest < MiniTest::Test
     assert_kind_of Merchant, item.merchant
   end
 
+  def test_revenue 
+    assert_equal 8186663, item.revenue
+  end
+
+  def test_quantity_sold
+    assert_equal 109, item.quantity_sold
+  end
+
 end

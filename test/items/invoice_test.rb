@@ -86,7 +86,4 @@ class InvoiceTest < MiniTest::Test
     assert_equal true, invoice.successful?
   end
 
-  # def test_it_gets_total_items
-  #   assert_equal 1, invoice.total_items
-  # end
 end

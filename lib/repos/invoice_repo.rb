@@ -34,7 +34,7 @@ class InvoiceRepo
   end
 
   def invoices
-    @invoice_list ||= invoice_objects
+    invoice_list ||= invoice_objects
   end
 
   def all

@@ -28,4 +28,16 @@ class Item
     engine.merchant_repository.find_by_id(self.merchant_id)
   end
 
+  def revenue
+   @revenue ||= invoice_items.collect do |invoice_item|
+      invoice_item.total_price if invoice_item.invoice.successful?
+    end.compact.reduce(0, :+)
+  end
+
+  def quantity_sold
+    invoice_items.collect do |invoice_item|
+      invoice_item.quantity if invoice_item.invoice.successful?
+    end.compact.reduce(0, :+)
+  end
+
 end

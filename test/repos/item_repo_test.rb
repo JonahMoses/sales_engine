@@ -97,7 +97,7 @@ class ItemRepoTest < Minitest::Test
   def test_random_merchant
     item_one = @item_repo.random
     item_two = @item_repo.random
-    100.times do
+    10.times do
       break if item_one.id != item_two.id
       item_two = @item_repo.random
     end
@@ -108,5 +108,15 @@ class ItemRepoTest < Minitest::Test
     items = item_repo.all
     assert_equal 2483, items.count
   end
-  
+
+  def test_most_revenue_by_quantity_returned
+    skip
+    assert_equal 1, item_repo.most_revenue(1)
+  end
+
+  def test_most_revenue_sorted_by_quantity
+    skip
+    assert_equal "26", item_repo.most_revenue(2).first.id
+  end
+
 end

@@ -1,4 +1,5 @@
 require 'csv'
+require 'pry'
 require_relative '../items/item.rb'
 
 class ItemRepo
@@ -46,7 +47,7 @@ class ItemRepo
   end
 
   def items
-    item_list ||= item_objects
+    @item_list ||= item_objects
   end
 
   def all
@@ -54,11 +55,16 @@ class ItemRepo
   end
 
   def most_revenue(quantity)
-    # revenue_merchants = all.sort_by { |merchant| merchant.revenue }
-    # revenue_merchants[0,quantity].reverse
+    revenue_items = all.sort_by { |item| item.revenue }
+    revenue_items[0,quantity].reverse
   end
 
-  private
+  # def most_items(quantity)
+  #   items_by_quantity = all.sort_by { |item| item.quantity_sold }
+  #   items_by_quantity[0,quantity].reverse
+  # end
+
+private
 
   def read_file
     @items = CSV.read filename, headers: true, header_converters: :symbol

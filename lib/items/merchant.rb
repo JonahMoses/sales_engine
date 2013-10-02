@@ -52,7 +52,7 @@ private
     end
   end
 
-  def estimate_revenue#(invoices)
+  def estimate_revenue(invoices)
     invoices.collect do |invoice|
       invoice.total_prices
     end.reduce(0, :+)

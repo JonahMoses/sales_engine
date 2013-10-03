@@ -2,7 +2,7 @@ require 'csv'
 require_relative '../items/item.rb'
 
 class ItemRepo
-  
+
   attr_reader :item_list,
               :filename,
               :items,
@@ -28,7 +28,7 @@ class ItemRepo
       end
     end
   end
-  
+
   def find_all_by_merchant_id(merchant_id)
     items_grouped_by_merchant[merchant_id] || []
   end
@@ -50,7 +50,7 @@ class ItemRepo
   end
 
   def random
-    items.sample
+    all.sample
   end
 
   def items
@@ -83,7 +83,7 @@ private
     read_file.each do |row|
       items << Item.new(row, engine)
     end
-    
+
     items
   end
 

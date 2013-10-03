@@ -10,14 +10,14 @@ class Transaction
               :engine
 
   def initialize(transaction_attribute, engine)
-    @id                          = transaction_attribute[:id].to_s
+    @id                          = transaction_attribute[:id].to_i
     @invoice_id                  = transaction_attribute[:invoice_id].to_s
-    @credit_card_number          = transaction_attribute[:credit_card_number].to_s
+    @credit_card_number          = transaction_attribute[:credit_card_number].to_i
     @credit_card_expiration_date = transaction_attribute[:credit_card_expiration_date].to_s
     @result                      = transaction_attribute[:result].to_s
     @created_at                  = transaction_attribute[:created_at].to_s
     @updated_at                  = transaction_attribute[:updated_at].to_s
-    @engine                      = engine  
+    @engine                      = engine
   end
 
   def invoice

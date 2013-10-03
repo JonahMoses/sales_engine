@@ -15,8 +15,8 @@ require_relative '../lib/repos/transaction_repo'
 
 class SalesEngine
 
-  attr_reader :customer_repository, 
-              :invoice_item_repository, 
+  attr_reader :customer_repository,
+              :invoice_item_repository,
               :invoice_repository,
               :item_repository,
               :merchant_repository,
@@ -38,7 +38,7 @@ class SalesEngine
   end
 
   private
- 
+
   def file(name)
     File.join(data_directory, "#{name}.csv")
   end

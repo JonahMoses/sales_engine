@@ -12,7 +12,7 @@ class Merchant
     @name       = attribute[:name].to_s
     @created_at = attribute[:created_at].to_s
     @updated_at = attribute[:updated_at].to_s
-    @engine     = engine  
+    @engine     = engine
   end
 
   def items

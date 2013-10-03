@@ -110,11 +110,11 @@ class ItemRepoTest < Minitest::Test
   end
 
   def test_most_revenue_by_quantity_returned
-    assert_equal "768", item_repo.most_revenue(1).first.id
+    assert_equal "1", item_repo.most_revenue(1).first.id
   end
 
   def test_most_revenue_sorted_by_quantity
-    assert_equal "737", item_repo.most_revenue(2).first.id
+    assert_equal "2", item_repo.most_revenue(2).first.id
   end
 
 end

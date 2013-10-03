@@ -21,12 +21,12 @@ class TransactionRepoTest < Minitest::Test
 
   def test_it_loads_file_and_creates_merchants
     transactions = transaction_repo.transactions
-    assert_equal '1', transactions.first.id
+    assert_equal 1, transactions.first.id
   end
 
   def test_define_method_find_by_id
     transaction = transaction_repo.find_by_id("1")
-    assert_equal "1", transaction.id
+    assert_equal 1, transaction.id
   end
 
   def test_define_method_find_by_invoice_id
@@ -36,7 +36,7 @@ class TransactionRepoTest < Minitest::Test
 
   def test_define_method_find_by_credit_card_number
     transaction = transaction_repo.find_by_credit_card_number("4654405418249632")
-    assert_equal "4654405418249632", transaction.credit_card_number
+    assert_equal 4654405418249632, transaction.credit_card_number
   end
 
   def test_define_method_find_by_credit_card_expiration_date

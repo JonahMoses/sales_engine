@@ -1,7 +1,6 @@
 require "minitest"
 require "minitest/autorun"
 require "minitest/pride"
-require 'pry'
 require "csv"
 require_relative "../lib/items/customer"
 require_relative "../lib/items/invoice"

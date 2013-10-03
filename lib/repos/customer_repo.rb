@@ -2,7 +2,7 @@ require 'csv'
 require_relative '../items/customer.rb'
 
 class CustomerRepo
-  
+
   attr_reader :customer_list,
               :filename,
               :customers,
@@ -30,7 +30,7 @@ class CustomerRepo
   end
 
   def random
-    customers.sample
+    all.sample
   end
 
   def customers

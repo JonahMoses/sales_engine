@@ -1,5 +1,5 @@
 class Customer
-  
+
   attr_reader :id,
               :first_name,
               :last_name,
@@ -19,5 +19,15 @@ class Customer
   def invoices
     engine.invoice_repository.find_all_by_customer_id(self.id)
   end
-  
+
+  def successful_invoices
+    invoices.select { |invoice| invoice.successful? }
+  end
+
+  def favorite_merchant
+    counts = Hash.new(0)
+    successful_invoices.each_with_object(counts) { |merchant| counts[merchant.id] +=1 }
+    counts.sort_by{ |merchants, count| count }.reverse.flatten.first
+  end
+
 end

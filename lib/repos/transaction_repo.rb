@@ -2,7 +2,7 @@ require 'csv'
 require_relative '../items/transaction'
 
 class TransactionRepo
-  
+
   attr_reader :transaction_list,
               :filename,
               :transactions,
@@ -35,7 +35,7 @@ class TransactionRepo
 
   def transactions_grouped_by_invoice_id
     @transactions_grouped_by_invoice_id ||= all.group_by { |transaction| transaction.invoice_id }
-  end 
+  end
 
   def random
     transactions.sample

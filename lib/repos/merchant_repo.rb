@@ -2,7 +2,7 @@ require 'csv'
 require_relative '../items/merchant'
 
 class MerchantRepo
-  
+
   attr_reader :filename,
               :merchants,
               :engine
@@ -32,10 +32,10 @@ class MerchantRepo
     merchants_grouped_by_id[id] || []
   end
 
-  def merchants_grouped_by_id 
+  def merchants_grouped_by_id
     @merchants_grouped_by_id ||= all.group_by { |merchant| merchant.id }
   end
-    
+
   def random
     merchants.sample
   end
@@ -70,7 +70,7 @@ class MerchantRepo
     read_file.each do |row|
       merchants << Merchant.new(row, engine)
     end
-    
+
     merchants
   end
 

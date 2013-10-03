@@ -47,4 +47,8 @@ class CustomerTest < MiniTest::Test
       assert_kind_of Invoice, customer
     end
   end
+
+  def test_favorite_merchant
+    assert_equal "8", customer.favorite_merchant
+  end
 end

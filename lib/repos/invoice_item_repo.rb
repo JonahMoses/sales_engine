@@ -2,7 +2,7 @@ require 'csv'
 require_relative '../items/invoice_items.rb'
 
 class InvoiceItemRepo
-  
+
   attr_reader :invoice_item_list,
               :filename,
               :invoice_items,
@@ -27,17 +27,17 @@ class InvoiceItemRepo
     end
   end
 
-  def find_all_by_unit_price(value)
-    all.select do |invoice_item|
-      invoice_item.unit_price == value
-    end
-  end
-
   %w[id item_id invoice_id quantity created_at updated_at].each do |attribute|
     define_method("find_all_by_#{attribute}") do |value|
       all.find_all do |invoice_items|
         invoice_items.send(attribute).to_s.downcase == value.to_s.downcase
       end
+    end
+  end
+
+  def find_all_by_unit_price(value)
+    all.select do |invoice_item|
+      invoice_item.unit_price == value
     end
   end
 
